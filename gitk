@@ -2690,6 +2690,7 @@ proc makewindow {} {
     makemenu $diff_menu {
 	{mc "Show origin of this line" command show_line_source}
 	{mc "Run git gui blame on this line" command {external_blame_diff}}
+	{mc "Annotate selection" command annotate_selection}
     }
     $diff_menu configure -tearoff 0
 }
@@ -3893,6 +3894,15 @@ proc show_line_source {} {
     set blameinst $i
     filerun $f [list read_line_source $f $i]
 }
+
+proc annotate_selection {} {
+	global diff_menu
+
+	set text [diff_menu selection get]
+	error_popup [mc "annotating %s" $text]
+
+}
+
 
 proc stopblaming {} {
     global blameinst
